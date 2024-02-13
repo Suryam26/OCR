@@ -1,5 +1,6 @@
 import React from 'react';
-import Scanner from './components/scanner';
+import Preview from './components/Preview';
+import Scanner from './components/Scanner';
 
 import './App.css';
 
@@ -19,7 +20,13 @@ function App() {
             <h1 className="m-6 text-center text-3xl font-extrabold">
                 Rematter Challenge
             </h1>
-            <Scanner setImage={setImage} />
+            <div className="my-6 p-10">
+                {image ? (
+                    <Preview imageSrc={image} setImage={setImage} />
+                ) : (
+                    <Scanner setImage={setImage} />
+                )}
+            </div>
         </React.Fragment>
     );
 }

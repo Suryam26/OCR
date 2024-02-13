@@ -9,6 +9,10 @@ function Scanner(props: ScannerProps) {
     const { setImage } = props;
 
     const webcamRef = React.useRef<any>(null);
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    const handleUserMedia = () => setIsLoading(false);
+
     const capture = React.useCallback(() => {
         if (webcamRef.current) {
             const imageSrc = webcamRef.current.getScreenshot();
@@ -17,10 +21,12 @@ function Scanner(props: ScannerProps) {
     }, [webcamRef]);
 
     return (
-        <div className="my-6 p-10">
+        <>
+            {isLoading && <h1>...Loading</h1>}
             <Webcam
                 audio={false}
                 ref={webcamRef}
+                onUserMedia={handleUserMedia}
                 className="mx-auto mb-6 rounded-3xl"
             />
             <button
@@ -32,7 +38,7 @@ function Scanner(props: ScannerProps) {
             >
                 Capture photo
             </button>
-        </div>
+        </>
     );
 }
 

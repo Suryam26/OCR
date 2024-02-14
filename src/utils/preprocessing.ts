@@ -1,18 +1,63 @@
 const preprocessing = (
     imageData: ImageData,
     canvasElement: HTMLCanvasElement,
+    width : number, 
+    height: number,
+    filterType :string
 ) => {
-    if (imageData) {
-        blurARGB(imageData.data, canvasElement, 1);
-        dilate(imageData.data, canvasElement);
-        // invertColors(imageData.data);
-        thresholdFilter(imageData.data, 0.5);
+
+    switch (filterType) {
+        case 'ac':
+            adjustContrastAndBrightness(imageData.data, 180, 100); // Assuming you have these functions defined
+            break;
+        // case 'adaptiveThreshold':
+        //     adaptiveThreshold(imageData.data, 7, 2); 
+            break;
+        // case 'doxaProcess':
+        //     doxaProcess(imageData, width, height);
+        //     break;
+        // case 'blurARGB':
+        //     // You'll need a canvasElement for this operation
+        //     blurARGB(imageData.data, canvasElement, 1); 
+        //     break;  
+        // case 'dilate':
+        //     dilate(imageData.data, canvasElement); 
+        //     break;
+        // case 'invertColors':
+        //     invertColors(imageData.data);
+        //     break;
+        case 't':
+            thresholdFilter(imageData.data, 0.5);
+            break;
+        default:
+            return imageData
     }
+
+    // if (imageData) {
+        
+    //     // adjustContrastAndBrightness(imageData.data, 180, 100)
+    //     // adaptiveThreshold(imageData.data, 7, 2)
+    //     // doxaProcess(imageData, width, height)
+    //     // blurARGB(imageData.data, canvasElement, 1);
+    //     // dilate(imageData.data, canvasElement);
+    //     // invertColors(imageData.data);
+    //     // thresholdFilter(imageData.data, 0.5);
+    // }
 
     return imageData;
 };
 
 export default preprocessing;
+
+const adjustContrastAndBrightness = (data: Uint8ClampedArray, contrast: number, brightness: number) => {
+    const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+
+    for (let i = 0; i < data.length; i += 4) {
+        data[i] = factor * (data[i] - 128) + 128 + brightness; // Red
+        data[i + 1] = factor * (data[i + 1] - 128) + 128 + brightness; // Green
+        data[i + 2] = factor * (data[i + 2] - 128) + 128 + brightness; // Blue
+    }
+};
 
 function getARGB(data: Uint8ClampedArray, i: number) {
     const offset = i * 4;
@@ -38,8 +83,8 @@ function setPixels(pixels: Uint8ClampedArray, data: Uint8ClampedArray) {
 // internal kernel stuff for the gaussian blur filter
 let blurRadius: number;
 let blurKernelSize: number | Int32Array;
-let blurKernel:  number | Int32Array;
-let blurMult: number[] | Int32Array[] ;
+let blurKernel: number | Int32Array;
+let blurMult: number[] | Int32Array[];
 
 // from https://github.com/processing/p5.js/blob/main/src/image/filters.js
 function buildBlurKernel(r: number) {
@@ -343,3 +388,33 @@ function hslToRgb(h: number, s: number, l: number) {
 
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
+
+// function adaptiveThreshold(pixels: Uint8ClampedArray, blockSize: number, C: number) {
+//     console.log(">>>>started")
+//     const mean = new Uint8ClampedArray(pixels.length);
+//     for (let i = blockSize; i < pixels.length - blockSize; i += blockSize * 4) {
+//       for (let j = blockSize * 4; j < i + blockSize * 4; j += 4) {
+//         let sum = 0;
+//         for (let k = -blockSize; k <= blockSize; k++) {
+//           for (let l = -blockSize; l <= blockSize; l++) {
+//             const index = (i + k * 4) + (j + l * 4);
+//             sum += pixels[index];
+//           }
+//         }
+//         mean[i] = Math.floor(sum / ((blockSize * 2 + 1) * (blockSize * 2 + 1)));
+//       }
+//     }
+//     console.log(">>>>loop 2")
+//     // Apply thresholding
+//     for (let i = 0; i < pixels.length; i += 4) {
+//       const threshold = mean[i] + C;
+//       if (pixels[i] >= threshold) {
+//         pixels[i] = pixels[i + 1] = pixels[i + 2] = 255;
+//       } else {
+//         pixels[i] = pixels[i + 1] = pixels[i + 2] = 0;
+//       }
+//     }
+
+//     console.log(">>>>done")
+// }
+

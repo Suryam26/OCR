@@ -1,27 +1,35 @@
 import React from 'react';
 import Preview from './components/Preview';
 import Scanner from './components/Scanner';
-import { tesseractTextRecogniser, getProcessedImage } from './utils';
+import { tesseractTextRecogniser, getProcessedImage, xyz, processText } from './utils';
 
 import './App.css';
 
 function App() {
     const [image, setImage] = React.useState<string>('');
-    const [imageDetails, setImageDetails] = React.useState<string>();
+    const [imageDetails, setImageDetails] = React.useState();
+    // const [result, setResult] = React.useState<Array>();
+
 
     const processImage = async () => {
-        const processedImage = getProcessedImage(image);
-        return await tesseractTextRecogniser(processedImage);
+       const temp =  await xyz(image)
+       return processText(temp)
+        // const processedImage = await getProcessedImage(image);
+
+        // setResult(processedImage)
+
+        // return await tesseractTextRecogniser(processedImage);
     };
 
     React.useEffect(() => {
         if (image) {
             processImage()
-                .then((result) => setImageDetails(result.data.text))
+                .then((result) => setImageDetails(result))
                 .catch((error) => {
                     console.error('Error processing image:', error);
                 });
         }
+        // console.log(imageDetails)
     }, [image]);
 
     return (
@@ -36,7 +44,9 @@ function App() {
                     <Scanner setImage={setImage} />
                 )}
             </div>
-            <p>{imageDetails}</p>
+            {/* <div className=' mx-60 '>{ result ? <img src={result}/> : null}
+            </div> */}
+            {/* <p className=' mx-60'>{imageDetails}</p> */}
         </React.Fragment>
     );
 }

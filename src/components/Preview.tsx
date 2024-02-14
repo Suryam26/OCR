@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReloadIcon } from '../icons';
 
 type PreviewProps = {
     imageSrc: string;
@@ -12,15 +13,19 @@ function Preview(props: PreviewProps) {
 
     return (
         <>
-            <img src={imageSrc} className="mx-auto mb-6 rounded-3xl" />
+            <img
+                src={imageSrc}
+                className="mx-auto mb-10 w-[100%] rounded-[18px]"
+            />
             <button
                 onClick={resetImage}
-                className="mx-auto block cursor-pointer 
-                rounded-lg bg-blue-500 px-4 py-2
-                font-bold text-white 
-                hover:bg-blue-700"
+                className="mx-auto flex 
+                cursor-pointer rounded-xl 
+                border border-neutral-300 
+                bg-white px-16 py-3 text-lg"
             >
-                Recapture photo
+                <ReloadIcon />
+                Retake
             </button>
         </>
     );

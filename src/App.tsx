@@ -13,17 +13,18 @@ function App() {
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
     const processImage = async () => {
-        const processedImage = getProcessedImage(image);
-        return await tesseractTextRecogniser(processedImage);
+        const processedImage = await getProcessedImage(image);
+        const tesseractData = await tesseractTextRecogniser(processedImage);
+        return tesseractData;
     };
-    
+
     const closeModal = () => setIsModalOpen(false);
 
     React.useEffect(() => {
         if (image) {
             processImage()
                 .then((result) => {
-                    setImageDetails(result.data.text)
+                    setImageDetails(result.data.text);
                     setIsModalOpen(true);
                 })
                 .catch((error) => {

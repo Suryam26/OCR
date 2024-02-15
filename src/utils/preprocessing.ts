@@ -2,12 +2,12 @@ const preprocessing = (
     imageData: ImageData,
     canvasElement: HTMLCanvasElement,
 ) => {
-    if (imageData) {
-        blurARGB(imageData.data, canvasElement, 1);
-        dilate(imageData.data, canvasElement);
-        // invertColors(imageData.data);
-        thresholdFilter(imageData.data, 0.5);
-    }
+    // if (imageData) {
+    //     blurARGB(imageData.data, canvasElement, 1);
+    //     dilate(imageData.data, canvasElement);
+    //     // invertColors(imageData.data);
+    //     thresholdFilter(imageData.data, 0.5);
+    // }
 
     return imageData;
 };
@@ -38,8 +38,8 @@ function setPixels(pixels: Uint8ClampedArray, data: Uint8ClampedArray) {
 // internal kernel stuff for the gaussian blur filter
 let blurRadius: number;
 let blurKernelSize: number | Int32Array;
-let blurKernel:  number | Int32Array;
-let blurMult: number[] | Int32Array[] ;
+let blurKernel: number | Int32Array;
+let blurMult: number[] | Int32Array[];
 
 // from https://github.com/processing/p5.js/blob/main/src/image/filters.js
 function buildBlurKernel(r: number) {

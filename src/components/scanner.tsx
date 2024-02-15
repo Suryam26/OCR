@@ -1,6 +1,7 @@
 import React from 'react';
 import Webcam from 'react-webcam';
 import WebcamLoader from './WebcamLoader';
+import { CameraIcon } from '../icons';
 
 type ScannerProps = {
     setImage: React.Dispatch<React.SetStateAction<string>>;
@@ -28,17 +29,19 @@ function Scanner(props: ScannerProps) {
                 audio={false}
                 ref={webcamRef}
                 onUserMedia={handleUserMedia}
-                className="mx-auto mb-6 rounded-3xl"
+                videoConstraints={{ aspectRatio: 16 / 9 }}
+                className="mx-auto mb-10 w-[100%] rounded-[18px]"
             />
             {!isLoading && (
                 <button
                     onClick={capture}
-                    className="mx-auto block cursor-pointer 
-                    rounded-lg bg-blue-500 px-4 py-2
-                    font-bold text-white 
-                    hover:bg-blue-700"
+                    className="mx-auto flex 
+                    cursor-pointer rounded-xl 
+                    bg-[#071427] px-16 py-3 
+                    text-lg text-white"
                 >
-                    Capture photo
+                    <CameraIcon />
+                    Capture
                 </button>
             )}
         </>

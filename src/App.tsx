@@ -2,22 +2,33 @@ import React from 'react';
 import DetailModal from './components/DetailModal';
 import Preview from './components/Preview';
 import Scanner from './components/Scanner';
+import { tesseractTextRecogniser, getProcessedImage } from './utils';
 import { ThunderIcon } from './icons';
 
 import './App.css';
 
 function App() {
     const [image, setImage] = React.useState<string>('');
-    const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
     const [imageDetails, setImageDetails] = React.useState<string>('');
+    const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
+    const processImage = async () => {
+        const processedImage = getProcessedImage(image);
+        return await tesseractTextRecogniser(processedImage);
+    };
+    
     const closeModal = () => setIsModalOpen(false);
 
     React.useEffect(() => {
         if (image) {
-            // const data = processImage();
-            setImageDetails('HELLO WORLD!');
-            setIsModalOpen(true);
+            processImage()
+                .then((result) => {
+                    setImageDetails(result.data.text)
+                    setIsModalOpen(true);
+                })
+                .catch((error) => {
+                    console.error('Error processing image:', error);
+                });
         }
     }, [image]);
 

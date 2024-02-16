@@ -6,7 +6,7 @@ const AddressIcon = () => {
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="#9ca3af"
-            className="h-4 w-4 mt-1"
+            className="mt-1 h-4 w-4"
         >
             <path
                 strokeLinecap="round"

@@ -50,7 +50,10 @@ function App() {
                     {image ? (
                         <Preview imageSrc={image} setImage={setImage} />
                     ) : (
-                        <Scanner setImage={setImage} onStateSelected={setSelectedState} />
+                        <Scanner
+                            setImage={setImage}
+                            onStateSelected={setSelectedState}
+                        />
                     )}
                 </div>
             </div>

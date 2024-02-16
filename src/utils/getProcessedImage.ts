@@ -8,8 +8,13 @@ const getProcessedImage = async (image: string) => {
     const ctx = canvasElement.getContext('2d');
     if (ctx) {
         ctx.drawImage(imageElement, 0, 0);
-        const imageData = ctx.getImageData(0,0, imageElement.width, imageElement.height)
-        const processedImageData = preprocessing(imageData, canvasElement)
+        const imageData = ctx.getImageData(
+            0,
+            0,
+            imageElement.width,
+            imageElement.height,
+        );
+        const processedImageData = preprocessing(imageData);
         ctx.putImageData(processedImageData, 0, 0);
     }
 

@@ -6,12 +6,11 @@ import { CameraIcon } from '../icons';
 
 type ScannerProps = {
     setImage: React.Dispatch<React.SetStateAction<string>>;
-    onStateSelected: (selectedState: string) => void; 
+    onStateSelected: (selectedState: string) => void;
 };
 
 function Scanner(props: ScannerProps) {
     const { setImage, onStateSelected } = props;
-
 
     const webcamRef = React.useRef<any>(null);
     const [isLoading, setIsLoading] = React.useState(true);
@@ -23,7 +22,6 @@ function Scanner(props: ScannerProps) {
         setSelectedState(state);
         onStateSelected(state); // Call the original prop function if necessary
     };
-
 
     const capture = React.useCallback(() => {
         if (webcamRef.current) {
@@ -44,13 +42,13 @@ function Scanner(props: ScannerProps) {
             />
             {!isLoading && (
                 <>
-                     <StateDropdown onStateSelected={handleStateSelected} />
+                    <StateDropdown onStateSelected={handleStateSelected} />
                     <button
                         onClick={capture}
                         disabled={!selectedState}
                         className={`mx-auto flex 
                         rounded-xl
-                         ${selectedState ? 'bg-[#071427] cursor-pointer' : 'bg-slate-500 cursor-not-allowed'}
+                         ${selectedState ? 'cursor-pointer bg-[#071427]' : 'cursor-not-allowed bg-slate-500'}
                         px-16 py-3 
                         text-lg text-white`}
                     >

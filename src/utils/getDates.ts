@@ -1,7 +1,6 @@
 const getDates = (paragraph: string) => {
     const dateRegex =
         /(?<!\S)(0?[1-9]|1[0-2])[-\/](0?[1-9]|[12]\d|3[01])[-\/]([0-9]{4})(?!\S)/g;
-        // /(0?[1-9]|1[0-2])[-\/](0?[1-9]|[12]\d|3[01])[-\/]([0-9]{4})/g;
 
     let dates = [];
     let match;
@@ -20,7 +19,7 @@ const getDates = (paragraph: string) => {
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
         const year = date.getFullYear();
-        return `${month}/${day}/${year}`; // Or adjust formatting if needed
+        return `${month}/${day}/${year}`;
     });
 
     return sortedFormattedDates;

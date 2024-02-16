@@ -13,7 +13,7 @@ const extractName = (
     } else if (fname) {
         return fname[1];
     } else {
-        return 'Name section not found in the given format.';
+        return 'Unable to Extract Name';
     }
 };
 

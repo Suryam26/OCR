@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { getDates, getName, getAddress } from '../utils';
-import { CrossIcon } from '../icons';
+import { AddressIcon, CrossIcon, DateIcon, DobIcon, NameIcon } from '../icons';
 
 type DetailModalProps = {
     open: boolean;
@@ -16,11 +16,8 @@ function DetailModal(props: DetailModalProps) {
     const cancelButtonRef = React.useRef(null);
 
     const dates = getDates(imageDetails);
-    const names = getName(imageDetails,selectedState);
-    const address = getAddress(imageDetails,selectedState)
-
-    console.log("Selected State: ", selectedState)
-    console.log("names: >>>", names)
+    const names = getName(imageDetails, selectedState);
+    const address = getAddress(imageDetails, selectedState);
 
     return (
         <Transition.Root show={open} as={React.Fragment}>
@@ -61,7 +58,7 @@ function DetailModal(props: DetailModalProps) {
                             >
                                 <div className="rounded-2xl border-8 border-solid border-[#ECF3FF] bg-white px-8 py-4">
                                     <div className="flex border-b border-solid border-[#EAEBF2] pb-2 font-bold uppercase text-[#19589B]">
-                                        Driver license
+                                        {selectedState} Driver license
                                         <button
                                             onClick={closeModal}
                                             className="ml-auto mr-2 block focus:outline-none"
@@ -70,17 +67,52 @@ function DetailModal(props: DetailModalProps) {
                                         </button>
                                     </div>
                                     <div className="min-h-28">
-                                        {imageDetails}
-                                        <br />
-                                        DOB: {dates[0]} <br />
-                                        ISS: {dates[1]} <br />
-                                        EXP: {dates[2]} <br/>
-                                    </div>
-                                    <div>
-                                        Name: {names}
-                                    </div>
-                                    <div>
-                                        Address: {address}
+                                        <div className="p-1">
+                                            <div className="flex gap-2">
+                                                <NameIcon />
+                                                <div className=" text-gray-400 ">
+                                                    Name
+                                                </div>
+                                            </div>
+                                            <div className="px-6">{names}</div>
+                                        </div>
+                                        <div className="flex gap-2 p-1">
+                                            <DobIcon />
+                                            <div className=" text-gray-400 ">
+                                                DOB
+                                            </div>
+                                            <div>{dates[0]}</div>
+                                        </div>
+                                        <div className="flex gap-2 p-1">
+                                            <DateIcon />
+                                            <div className=" text-gray-400 ">
+                                                ISS
+                                            </div>
+                                            <div className=" rounded-lg bg-green-100 px-1 text-green-600">
+                                                {dates[1]}
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2 p-1">
+                                            <DateIcon />
+
+                                            <div className=" text-gray-400 ">
+                                                EXP
+                                            </div>
+                                            <div className=" rounded-lg bg-red-100 px-1 text-red-600">
+                                                {dates[2]}
+                                            </div>
+                                        </div>
+                                        <div className="p-1 ">
+                                            <div className="flex gap-2">
+                                                <AddressIcon />
+                                                <div className=" text-gray-400 ">
+                                                    Address
+                                                </div>
+                                            </div>
+                                            <div className="px-6">
+                                                {address}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </Dialog.Panel>

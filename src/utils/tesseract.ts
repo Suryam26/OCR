@@ -15,7 +15,6 @@ const tesseractTextRecogniser = async (image: string) => {
         { imageColor: true, imageGrey: true, imageBinary: true },
     );
 
-    // console.log(result.data.text);
     return result;
 };
 

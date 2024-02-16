@@ -7,16 +7,18 @@ type DetailModalProps = {
     open: boolean;
     imageDetails: string;
     closeModal: () => void;
+    selectedState: string;
 };
 
 function DetailModal(props: DetailModalProps) {
-    const { open, imageDetails, closeModal } = props;
+    const { open, imageDetails, closeModal, selectedState } = props;
 
     const cancelButtonRef = React.useRef(null);
 
     const dates = getDates(imageDetails);
     const names = getNames(imageDetails);
 
+    console.log("Selected State: ", selectedState)
     console.log("names: >>>", names)
 
     return (
@@ -73,9 +75,9 @@ function DetailModal(props: DetailModalProps) {
                                         ISS: {dates[1]} <br />
                                         EXP: {dates[2]} <br/>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         Name: {names}
-                                    </div>
+                                    </div> */}
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

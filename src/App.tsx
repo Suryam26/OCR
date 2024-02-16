@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
     const [image, setImage] = React.useState<string>('');
+    const [selectedState, setSelectedState] = React.useState<string>('');
     const [imageDetails, setImageDetails] = React.useState<string>('');
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
@@ -49,7 +50,7 @@ function App() {
                     {image ? (
                         <Preview imageSrc={image} setImage={setImage} />
                     ) : (
-                        <Scanner setImage={setImage} />
+                        <Scanner setImage={setImage} onStateSelected={setSelectedState} />
                     )}
                 </div>
             </div>
@@ -58,6 +59,7 @@ function App() {
                     open={isModalOpen}
                     closeModal={closeModal}
                     imageDetails={imageDetails}
+                    selectedState={selectedState}
                 />
             )}
         </React.Fragment>

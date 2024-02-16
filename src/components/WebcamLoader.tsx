@@ -1,6 +1,6 @@
 function WebcamLoader() {
     return (
-        <div className="mt-20 flex items-center justify-center">
+        <div className="mt-60 flex items-center justify-center">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="800px"

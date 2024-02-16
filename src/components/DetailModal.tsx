@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { getDates } from '../utils';
+import { getDates, getNames } from '../utils';
 import { CrossIcon } from '../icons';
 
 type DetailModalProps = {
@@ -15,6 +15,9 @@ function DetailModal(props: DetailModalProps) {
     const cancelButtonRef = React.useRef(null);
 
     const dates = getDates(imageDetails);
+    const names = getNames(imageDetails);
+
+    console.log("names: >>>", names)
 
     return (
         <Transition.Root show={open} as={React.Fragment}>
@@ -68,7 +71,10 @@ function DetailModal(props: DetailModalProps) {
                                         <br />
                                         DOB: {dates[0]} <br />
                                         ISS: {dates[1]} <br />
-                                        EXP: {dates[2]}
+                                        EXP: {dates[2]} <br/>
+                                    </div>
+                                    <div>
+                                        Name: {names}
                                     </div>
                                 </div>
                             </Dialog.Panel>

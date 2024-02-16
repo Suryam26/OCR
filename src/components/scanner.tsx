@@ -12,10 +12,17 @@ type ScannerProps = {
 function Scanner(props: ScannerProps) {
     const { setImage, onStateSelected } = props;
 
+
     const webcamRef = React.useRef<any>(null);
     const [isLoading, setIsLoading] = React.useState(true);
+    const [selectedState, setSelectedState] = React.useState('');
 
     const handleUserMedia = () => setIsLoading(false);
+
+    const handleStateSelected = (state: string) => {
+        setSelectedState(state);
+        onStateSelected(state); // Call the original prop function if necessary
+    };
 
 
     const capture = React.useCallback(() => {
@@ -37,13 +44,15 @@ function Scanner(props: ScannerProps) {
             />
             {!isLoading && (
                 <>
-                    <StateDropdown onStateSelected={onStateSelected} />
+                     <StateDropdown onStateSelected={handleStateSelected} />
                     <button
                         onClick={capture}
-                        className="mx-auto flex 
-                        cursor-pointer rounded-xl 
-                        bg-[#071427] px-16 py-3 
-                        text-lg text-white"
+                        disabled={!selectedState}
+                        className={`mx-auto flex 
+                        rounded-xl
+                         ${selectedState ? 'bg-[#071427] cursor-pointer' : 'bg-slate-500 cursor-not-allowed'}
+                        px-16 py-3 
+                        text-lg text-white`}
                     >
                         <CameraIcon />
                         Capture

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { getDates, getNames } from '../utils';
+import { getDates, getName, getAddress } from '../utils';
 import { CrossIcon } from '../icons';
 
 type DetailModalProps = {
@@ -16,7 +16,8 @@ function DetailModal(props: DetailModalProps) {
     const cancelButtonRef = React.useRef(null);
 
     const dates = getDates(imageDetails);
-    const names = getNames(imageDetails);
+    const names = getName(imageDetails,selectedState);
+    const address = getAddress(imageDetails,selectedState)
 
     console.log("Selected State: ", selectedState)
     console.log("names: >>>", names)
@@ -75,9 +76,12 @@ function DetailModal(props: DetailModalProps) {
                                         ISS: {dates[1]} <br />
                                         EXP: {dates[2]} <br/>
                                     </div>
-                                    {/* <div>
+                                    <div>
                                         Name: {names}
-                                    </div> */}
+                                    </div>
+                                    <div>
+                                        Address: {address}
+                                    </div>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
